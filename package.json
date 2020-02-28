@@ -10,7 +10,9 @@
     "dev": "gulp dev-run",
     "build": "gulp prod-build",
     "lint": "eslint app/src",
-    "format:fix": "pretty-quick --staged"
+    "format:fix": "pretty-quick --staged",
+    "test": "mocha app/tests --require @babel/register -w",
+    "coverage": "nyc mocha app/tests --require @babel/register"
   },
   "dependencies": {
     "colors": "^1.4.0"
@@ -25,6 +27,7 @@
     "babel-eslint": "^10.1.0",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "chai": "^4.2.0",
     "del": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
@@ -38,6 +41,8 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify-es": "^2.0.0",
     "husky": "^4.2.3",
+    "mocha": "^7.1.0",
+    "nyc": "^15.0.0",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
     "sequelize-cli": "^5.5.1"
@@ -57,6 +62,16 @@
       "@babel/plugin-proposal-export-default-from",
       "@babel/plugin-proposal-class-properties",
       "add-module-exports"
+    ]
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "app/src/**/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
     ]
   },
   "husky": {

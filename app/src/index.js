@@ -1,3 +1,6 @@
-import 'colors';
+import SourceParser from './source-parser';
 
-console.log('test'.red);
+const sourceParser = new SourceParser();
+const data = sourceParser.parse();
+
+console.log(data);

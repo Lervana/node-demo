@@ -63,6 +63,7 @@ const run = (path, done) => {
       NODE_ENV: 'development',
       NODE_CONFIG_DIR: './' + path + 'config',
     },
+    args: ['source.json'],
     done,
   };
 
