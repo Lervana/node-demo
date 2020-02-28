@@ -36,7 +36,6 @@ export default class SourceParser {
         try {
           return JSON.parse(data);
         } catch (e) {
-          console.log(e);
           throw new Error('Cannot parse sourcefile');
         }
       } else throw new Error('Source file not found');

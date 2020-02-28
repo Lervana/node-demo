@@ -21,6 +21,7 @@
     "@babel/core": "^7.8.6",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-export-default-from": "^7.8.3",
+    "@babel/plugin-proposal-throw-expressions": "^7.8.3",
     "@babel/preset-env": "^7.8.6",
     "@babel/register": "^7.8.6",
     "@babel/runtime": "^7.8.4",
@@ -45,7 +46,8 @@
     "nyc": "^15.0.0",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "sinon": "^9.0.0"
   },
   "babel": {
     "presets": [
@@ -59,6 +61,7 @@
       ]
     ],
     "plugins": [
+      "@babel/plugin-proposal-throw-expressions",
       "@babel/plugin-proposal-export-default-from",
       "@babel/plugin-proposal-class-properties",
       "add-module-exports"
