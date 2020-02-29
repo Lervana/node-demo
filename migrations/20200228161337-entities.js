@@ -10,6 +10,7 @@ export default {
       },
       entityType: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

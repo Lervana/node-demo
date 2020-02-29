@@ -16,6 +16,18 @@ export default {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      linksTo: {
+        type: Sequelize.STRING,
+      },
+      entityId: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'Entities',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
