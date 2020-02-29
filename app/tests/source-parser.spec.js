@@ -2,7 +2,7 @@ import fs from 'fs';
 import chai from 'chai';
 import sinon from 'sinon';
 
-import SourceParser from '../src/source-parser';
+import SourceParser from '../src/parsers/source-parser';
 
 const expect = chai.expect;
 
@@ -15,7 +15,7 @@ describe('SourceParser', () => {
 
   it('Should throw error when file path is not set in args', () => {
     const sourceParser = new SourceParser();
-    const test = () => sourceParser.parse(null);
+    const test = () => sourceParser.parseSync(null);
     expect(test).to.throw('You need to specify path for source file');
   });
 
@@ -24,18 +24,18 @@ describe('SourceParser', () => {
     const fakeAccessSync = sinon.fake.throws(new Error());
     sinon.replace(fakeFS, 'accessSync', fakeAccessSync);
     const sourceParser = new SourceParser(fakeFS);
-    const test = () => sourceParser.parse(['', '', 'test.json']);
+    const test = () => sourceParser.parseSync(['', '', 'test.json']);
     expect(test).to.throw('Source file not found');
   });
 
   it('Should throw error when file cannot be loaded', () => {
     const fakeFS = { ...fs };
     const fakeAccessSync = sinon.fake.returns(true);
-    const fakereadFileSync = sinon.fake.throws(new Error());
+    const fakeReadFileSync = sinon.fake.throws(new Error());
     sinon.replace(fakeFS, 'accessSync', fakeAccessSync);
-    sinon.replace(fakeFS, 'readFileSync', fakereadFileSync);
+    sinon.replace(fakeFS, 'readFileSync', fakeReadFileSync);
     const sourceParser = new SourceParser(fakeFS);
-    const test = () => sourceParser.parse();
+    const test = () => sourceParser.parseSync();
     expect(test).to.throw('Cannot read source file');
   });
 
@@ -46,19 +46,55 @@ describe('SourceParser', () => {
     sinon.replace(fakeFS, 'accessSync', fakeAccessSync);
     sinon.replace(fakeFS, 'readFileSync', fakereadFileSync);
     const sourceParser = new SourceParser(fakeFS);
-    const test = () => sourceParser.parse();
+    const test = () => sourceParser.parseSync();
     expect(test).to.throw('Cannot parse sourcefile');
   });
 
   it('Should return expected data when file is valid', () => {
-    const expectedData = [{ a: 1 }, { b: [123] }];
+    const sourceData = [
+      {
+        url: 'https://twitter.com/aaa',
+        entityType: 'person',
+        linksTo: ['https://twitter.com/bbb', 'https://linkedin.com/aaa'],
+      },
+      {
+        url: 'https://www.example2.com',
+        entityType: 'person',
+        linksTo: ['https://twitter.com/ccc'],
+      },
+    ];
     const fakeFS = { ...fs };
     const fakeAccessSync = sinon.fake.returns(true);
-    const fakereadFileSync = sinon.fake.returns(JSON.stringify(expectedData));
+    const fakereadFileSync = sinon.fake.returns(JSON.stringify(sourceData));
     sinon.replace(fakeFS, 'accessSync', fakeAccessSync);
     sinon.replace(fakeFS, 'readFileSync', fakereadFileSync);
     const sourceParser = new SourceParser(fakeFS);
-    const data = sourceParser.parse();
-    expect(JSON.stringify(data)).to.equal(JSON.stringify(expectedData));
+    const data = sourceParser.parseSync();
+    expect(JSON.stringify(data)).to.equal(
+      JSON.stringify([
+        {
+          url: 'http://twitter.com/aaa',
+          entityType: 'person',
+          linksTo: ['http://twitter.com/bbb', 'http://linkedin.com/aaa'],
+        },
+        {
+          url: 'http://example2.com',
+          entityType: 'person',
+          linksTo: ['http://twitter.com/ccc'],
+        },
+      ]),
+    );
+  });
+
+  it('Should simplify data to expected result if there are no url and linksTo fields', () => {
+    const sourceData = [{ entityType: 'person' }, { entityType: 'person' }];
+    const fakeFS = { ...fs };
+    const fakeAccessSync = sinon.fake.returns(true);
+    const fakereadFileSync = sinon.fake.returns(JSON.stringify(sourceData));
+    sinon.replace(fakeFS, 'accessSync', fakeAccessSync);
+    sinon.replace(fakeFS, 'readFileSync', fakereadFileSync);
+    const sourceParser = new SourceParser(fakeFS);
+    const result = sourceParser.simplifyData(sourceData);
+    expect(JSON.stringify(result)).to.equal(JSON.stringify(sourceData));
   });
 });

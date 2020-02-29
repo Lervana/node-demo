@@ -2,12 +2,17 @@
   {
     "url": "https://twitter.com/aaa",
     "entityType": "person",
-    "linksTo": ["https://twitter.com/bbb", "https://linkedin.com/aaa"]
+    "linksTo": [
+      "https://twitter.com/bbb",
+      "https://linkedin.com/aaa"
+    ]
   },
   {
     "url": "https://linkedin.com/aaa",
     "entityType": "person",
-    "linksTo": ["http://aaa.com"]
+    "linksTo": [
+      "http://aaa.com"
+    ]
   },
   {
     "url": "https://bbb.com",
@@ -17,11 +22,15 @@
   {
     "url": "https://example.com",
     "entityType": "organization",
-    "linksTo": ["https://www.twitter.com/aaa"]
+    "linksTo": [
+      "https://www.twitter.com/aaa"
+    ]
   },
   {
     "url": "http://aaa.com",
     "entityType": "person",
-    "linksTo": ["http://twitter.com/aaa"]
+    "linksTo": [
+      "http://twitter.com/aaa"
+    ]
   }
 ]
