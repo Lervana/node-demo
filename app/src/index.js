@@ -7,7 +7,8 @@ import { entitiesService } from './services';
 import { saveResult } from './utils';
 
 const run = async () => {
-  await testDatabaseConnection();
+  const databaseOk = await testDatabaseConnection();
+  if (!databaseOk) throw new Error('Cannot connect to database, exiting');
 
   const sourceParser = new SourceParser();
   const dataLinker = new DataLinker();

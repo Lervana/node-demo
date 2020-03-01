@@ -1,5 +1,4 @@
 import fs from 'fs';
-import Url from 'url-parse';
 
 const allowedEntitiesTypes = ['organization', 'person'];
 
