@@ -1,0 +1,15 @@
+require('@babel/register')({
+	presets: ['@babel/preset-env'],
+	plugins: [
+		['@babel/plugin-transform-runtime', { 'regenerator': true }]
+	],
+});
+
+const path = require('path');
+
+module.exports = {
+	'config': path.resolve('app/src/config', 'database.js'),
+	'models-path': path.resolve('app/src', 'models'),
+	'seeders-path': path.resolve('seeders'),
+	'migrations-path': path.resolve('migrations')
+};

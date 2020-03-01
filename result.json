@@ -1,0 +1,53 @@
+[
+  {
+    "id": "d052dd07-020f-4543-a88c-3d87032f750e",
+    "entityType": "person",
+    "profiles": [
+      {
+        "id": "eae5f161-9e59-4eee-a25a-ffa0f865f834",
+        "url": "http://linkedin.com/aaa",
+        "entityType": "person",
+        "linksTo": [
+          "http://aaa.com"
+        ]
+      },
+      {
+        "id": "57c6c5ea-1ba1-433f-903f-8d2bbff3069c",
+        "url": "http://twitter.com/aaa",
+        "entityType": "person",
+        "linksTo": [
+          "http://twitter.com/bbb",
+          "http://linkedin.com/aaa"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "f046ae2c-3902-414d-b9e7-a15dadbc71a5",
+    "entityType": "organization",
+    "profiles": [
+      {
+        "id": "90db1d4e-96c0-4e97-b02a-ae673363f17d",
+        "url": "http://example.com",
+        "entityType": "organization",
+        "linksTo": [
+          "http://twitter.com/aaa"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "a6aca420-af9a-4f4a-9a1f-641673d618cf",
+    "entityType": "person",
+    "profiles": [
+      {
+        "id": "59dbc579-9c9c-4bc1-b61e-36cf8898fa33",
+        "url": "http://aaa.com",
+        "entityType": "person",
+        "linksTo": [
+          "http://twitter.com/aaa"
+        ]
+      }
+    ]
+  }
+]

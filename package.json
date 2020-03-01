@@ -1,0 +1,108 @@
+{
+  "name": "node-demo",
+  "version": "1.0.0",
+  "description": "Node.js script demo",
+  "main": "index.js",
+  "repository": "git@github.com:Lervana/node-demo.git",
+  "author": "Katarzyna Dadek <k.dadek@lervana.dev>",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "gulp dev-run",
+    "prod": "cross-env NODE_CONFIG_DIR=./app/build/config node app/build/index.js",
+    "build": "gulp prod-build",
+    "lint": "eslint app/src",
+    "format:fix": "pretty-quick --staged",
+    "clean:dist": "rimraf ./app/dist",
+    "clean:build": "rimraf ./app/build",
+    "clean": "rimraf ./app/dist ./app/build",
+    "db:m": "npx sequelize-cli db:migrate",
+    "db:m:u": "npx sequelize-cli db:migrate:undo:all",
+    "db:reset": "npm-run-all db:m:u db:m",
+    "dc:up": "docker-compose up",
+    "test": "cross-env NODE_CONFIG_DIR=./app/src/config NODE_ENV=test mocha app/tests --require @babel/register -w",
+    "coverage": "nyc mocha app/tests --require @babel/register",
+    "coverage:watch": "cross-env NODE_CONFIG_DIR=./app/src/config NODE_ENV=test nodemon -w app/tests -w app/src -d 2 -x nyc mocha app/tests --require @babel/register"
+  },
+  "dependencies": {
+    "bunyan": "^1.8.12",
+    "bunyan-prettystream": "^0.1.3",
+    "colors": "^1.4.0",
+    "config": "^3.3.0",
+    "dotenv": "^8.2.0",
+    "lodash": "^4.17.15",
+    "pg": "^7.18.2",
+    "pg-native": "^3.0.0",
+    "sequelize": "^5.21.5",
+    "sequelize-erd": "^1.3.0",
+    "url-parse": "^1.4.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.6",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-export-default-from": "^7.8.3",
+    "@babel/plugin-proposal-throw-expressions": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.6",
+    "@babel/register": "^7.8.6",
+    "@babel/runtime": "^7.8.4",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "chai": "^4.2.0",
+    "cross-env": "^7.0.0",
+    "del": "^5.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-cached": "^1.1.1",
+    "gulp-eslint": "^6.0.0",
+    "gulp-nodemon": "^2.4.2",
+    "gulp-plumber": "^1.2.1",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify-es": "^2.0.0",
+    "husky": "3.0.1",
+    "mocha": "^7.1.0",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^15.0.0",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
+    "rimraf": "^3.0.2",
+    "sequelize-cli": "^5.5.1",
+    "sinon": "^9.0.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-throw-expressions",
+      "@babel/plugin-proposal-export-default-from",
+      "@babel/plugin-proposal-class-properties",
+      "add-module-exports"
+    ]
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "app/src/**/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "run-s format:fix lint"
+    }
+  }
+}

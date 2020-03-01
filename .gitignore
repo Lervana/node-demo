@@ -1,0 +1,9 @@
+.idea
+.DS_Store
+node_modules
+dist
+.env
+.env.test
+app/build
+.nyc_output
+coverage
