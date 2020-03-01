@@ -8,7 +8,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "gulp dev-run",
-    "prod": "cross-env NODE_CONFIG_DIR=./app/dist/config node app/dist/index.js",
+    "prod": "cross-env NODE_CONFIG_DIR=./app/build/config node app/build/index.js",
     "build": "gulp prod-build",
     "lint": "eslint app/src",
     "format:fix": "pretty-quick --staged",
