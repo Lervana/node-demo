@@ -37,7 +37,7 @@
 | **clean:build**    |                       Cleans build directory                        |
 | **clean**          |                    Cleans dist & build directory                    |
 | **db:m**           |                         Runs DB migrations                          |
-| **db:m:u**         |                       Undo all DB migrations                        |
+| **db:mu**          |                       Undo all DB migrations                        |
 | **db:reset**       |                              Resets DB                              |
 | **dc:up**          |                     Starts PostgreSQL in docker                     |
 | **test**           |                      Runs tests in watch mode                       |

@@ -16,7 +16,7 @@
     "clean:build": "rimraf ./app/build",
     "clean": "rimraf ./app/dist ./app/build",
     "db:m": "npx sequelize-cli db:migrate",
-    "db:m:u": "npx sequelize-cli db:migrate:undo:all",
+    "db:mu": "npx sequelize-cli db:migrate:undo:all",
     "db:reset": "npm-run-all db:m:u db:m",
     "dc:up": "docker-compose up",
     "test": "cross-env NODE_CONFIG_DIR=./app/src/config NODE_ENV=test mocha app/tests --require @babel/register -w",
