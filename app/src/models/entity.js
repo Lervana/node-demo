@@ -1,4 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
+import Profile from './profile';
 
 export default class Entity extends Model {
   static init(sequelize) {
@@ -16,5 +17,9 @@ export default class Entity extends Model {
       },
       { sequelize },
     );
+  }
+
+  static associate() {
+    this.hasMany(Profile, { foreignKey: 'entityId', as: 'profiles' });
   }
 }

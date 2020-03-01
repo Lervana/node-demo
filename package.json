@@ -8,13 +8,20 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "gulp dev-run",
+    "prod": "node /app/dist/index.js",
     "build": "gulp prod-build",
     "lint": "eslint app/src",
     "format:fix": "pretty-quick --staged",
-    "test": "mocha app/tests --require @babel/register -w",
-    "coverage": "nyc mocha app/tests --require @babel/register",
+    "clean:dist": "rimraf ./app/dist",
+    "clean:build": "rimraf ./app/build",
+    "clean": "rimraf ./app/dist ./app/build",
     "db:m": "npx sequelize-cli db:migrate",
-    "dc:up": "docker-compose up"
+    "db:m:u": "npx sequelize-cli db:migrate:undo:all",
+    "db:reset": "npm-run-all db:m:u db:m",
+    "dc:up": "docker-compose up",
+    "test": "cross-env NODE_CONFIG_DIR=./app/src/config NODE_ENV=test mocha app/tests --require @babel/register -w",
+    "coverage": "nyc mocha app/tests --require @babel/register",
+    "coverage:watch": "cross-env NODE_CONFIG_DIR=./app/src/config NODE_ENV=test nodemon -w app/tests -w app/src -d 2 -x nyc mocha app/tests --require @babel/register"
   },
   "dependencies": {
     "bunyan": "^1.8.12",
@@ -42,6 +49,7 @@
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-transform-runtime": "^6.23.0",
     "chai": "^4.2.0",
+    "cross-env": "^7.0.0",
     "del": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
@@ -59,6 +67,7 @@
     "nyc": "^15.0.0",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
+    "rimraf": "^3.0.2",
     "sequelize-cli": "^5.5.1",
     "sinon": "^9.0.0"
   },

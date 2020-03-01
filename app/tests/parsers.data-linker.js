@@ -1,10 +1,8 @@
-import fs from 'fs';
 import chai from 'chai';
-import sinon from 'sinon';
 
 import DataLinker from '../src/parsers/data-linker';
 import SourceParser from '../src/parsers/source-parser';
-import { exampleInput, exampleOutput } from './test-data';
+import { exampleInput, exampleOutput } from './utils/test-data';
 
 const expect = chai.expect;
 

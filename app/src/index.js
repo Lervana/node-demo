@@ -4,6 +4,7 @@ import DataLinker from './parsers/data-linker';
 import SourceParser from './parsers/source-parser';
 import { testDatabaseConnection } from './models/database';
 import { entitiesService } from './services';
+import { saveResult } from './utils';
 
 const run = async () => {
   await testDatabaseConnection();
@@ -13,10 +14,11 @@ const run = async () => {
 
   const data = sourceParser.parseSync();
   const linkedData = dataLinker.parseSync(data);
+  await entitiesService.storeData(linkedData);
 
-
-  console.log(linkedData);
-
+  const result = await entitiesService.readAll();
+  saveResult(result);
+  process.exit(0);
 };
 
 run().catch(error => {

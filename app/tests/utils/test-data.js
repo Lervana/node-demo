@@ -52,3 +52,16 @@ export const exampleOutput = [
     { url: 'http://example2.com', entityType: 'person', linksTo: ['http://twitter.com/ccc'] },
   ],
 ];
+
+export const exampleStoreDataInput = [
+  [
+    {
+      url: 'http://twitter.com/aaa',
+      entityType: 'person',
+      linksTo: ['http://twitter.com/bbb', 'http://linkedin.com/aaa'],
+    },
+    { url: 'http://linkedin.com/aaa', entityType: 'person', linksTo: ['http://aaa.com'] },
+  ],
+  [{ url: 'http://example.com', entityType: 'organization', linksTo: ['http://twitter.com/aaa'] }],
+  [{ url: 'http://aaa.com', entityType: 'person', linksTo: ['http://twitter.com/aaa'] }],
+];

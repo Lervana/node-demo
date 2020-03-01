@@ -1,3 +1,5 @@
+import 'colors';
+
 import config from 'config';
 import bunyan from 'bunyan';
 import PrettyStream from 'bunyan-prettystream';
